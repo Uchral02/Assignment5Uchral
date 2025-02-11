@@ -2,39 +2,48 @@ import sys
 import math
 import random
 
-def number_puzzle(number):
-    if number % 2 == 0:
-        result = f"The number {number} is even. Its square root is {math.sqrt(number):.2f}."
-    else:
-        result = f"The number {number} is odd. Its cube is {number ** 3}."
-    return result
+# Retrieve arguments from PHP
+number = int(sys.argv[1])
+text = sys.argv[2]
 
-def text_puzzle(text):
-    binary_text = ' '.join(format(ord(char), '08b') for char in text)
-    vowels = "aeiouAEIOU"
-    vowel_count = sum(1 for char in text if char in vowels)
-    return binary_text, vowel_count
+# Task 1: Number Puzzle
+number_result = ""
+if number % 2 == 0:
+    square_root = math.sqrt(number)
+    number_result = f"The number {number} is even. Its square root is {square_root:.2f}."
+else:
+    cube = number ** 3
+    number_result = f"The number {number} is odd. Its cube is {cube}."
 
-def treasure_hunt():
-    target = random.randint(1, 100)
-    attempts = 0
-    while attempts < 5:
-        guess = random.randint(1, 100)  
-        attempts += 1
-        if guess == target:
-            return f"Congratulations! You found the treasure in {attempts} attempts."
-    return "Sorry, you didn't find the treasure within 5 attempts."
+# Task 2: Text Puzzle
+binary_text = ' '.join(format(ord(char), '08b') for char in text)
+vowel_count = sum(1 for char in text if char.lower() in 'aeiou')
+text_result = f"The binary representation of '{text}' is: {binary_text}\nIt contains {vowel_count} vowels."
 
-if __name__ == "__main__":
-    number = int(sys.argv[1])
-    text = sys.argv[2]
-    number_result = number_puzzle(number)
-    binary_text, vowel_count = text_puzzle(text)
-    treasure_result = treasure_hunt()
-    output = {
-        "number_result": number_result,
-        "binary_text": binary_text,
-        "vowel_count": vowel_count,
-        "treasure_result": treasure_result
-    }
-    print(str(output))
+# Task 3: Treasure Hunt
+random_number = random.randint(1, 100)
+attempts = 0
+won = False
+
+while attempts < 5:
+    attempts += 1
+    guess = random.randint(1, 100)  # Simulate user guess
+    if guess == random_number:
+        won = True
+        break
+
+treasure_result = "Congratulations! You won the treasure hunt!" if won else "Sorry, you lost the treasure hunt."
+
+# Combine and return results
+results = f"""
+Number Puzzle:
+{number_result}
+
+Text Puzzle:
+{text_result}
+
+Treasure Hunt:
+{treasure_result}
+"""
+
+print(results)
