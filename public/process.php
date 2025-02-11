@@ -1,15 +1,16 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
     $number = $_POST['number'];
     $text = $_POST['text'];
+
+    // Call the Python script with the form data
     $command = escapeshellcmd("python3 process.py $number \"$text\"");
     $output = shell_exec($command);
-    $results = json_decode($output, true);
+
+    // Display the results
     echo "<h1>Puzzle Results</h1>";
-    echo "<p><strong>Number Puzzle:</strong> " . $results['number_result'] . "</p>";
-    echo "<p><strong>Binary Text:</strong> " . $results['binary_text'] . "</p>";
-    echo "<p><strong>Vowel Count:</strong> " . $results['vowel_count'] . "</p>";
-    echo "<p><strong>Treasure Hunt:</strong> " . $results['treasure_result'] . "</p>";
+    echo "<pre>$output</pre>";
 } else {
     echo "Invalid request.";
 }

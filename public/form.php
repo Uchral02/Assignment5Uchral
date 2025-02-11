@@ -7,14 +7,14 @@
 </head>
 <body>
     <h1>Solve the Puzzle!</h1>
-    <form action="process.php" method="POST">
+    <form action="process.php" method="post">
         <label for="number">Enter a Number (e.g., Birth Year):</label>
         <input type="number" id="number" name="number" required>
         <br><br>
         <label for="text">Enter a Text Message (e.g., Name or Secret Word):</label>
         <input type="text" id="text" name="text" required>
         <br><br>
-        <button type="submit">Solve the Puzzle</button>
+        <button type="submit" name="submit">Solve the Puzzle</button>
     </form>
 </body>
 </html>
